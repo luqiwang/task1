@@ -3,6 +3,7 @@ defmodule Task1Web.TaskController do
 
   alias Task1.Social
   alias Task1.Social.Task
+  alias Task1.Accounts
 
   def index(conn, _params) do
     tasks = Social.list_tasks()
@@ -10,8 +11,9 @@ defmodule Task1Web.TaskController do
   end
 
   def new(conn, _params) do
+    user_id_list = Accounts.get_all_id()
     changeset = Social.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset, task: %Task{})
+    render(conn, "new.html", changeset: changeset, task: %Task{}, user_id_list: user_id_list)
   end
 
 
@@ -32,9 +34,10 @@ defmodule Task1Web.TaskController do
   end
 
   def edit(conn, %{"id" => id}) do
+    user_id_list = Accounts.get_all_id()
     task = Social.get_task!(id)
     changeset = Social.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    render(conn, "edit.html", task: task, changeset: changeset, user_id_list: user_id_list)
   end
 
 

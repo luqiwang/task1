@@ -107,4 +107,10 @@ defmodule Task1.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def get_all_id do
+    query = from u in User,
+    select: u.id
+    Repo.all(query)
+  end
 end
