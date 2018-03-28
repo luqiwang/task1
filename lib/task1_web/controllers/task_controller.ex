@@ -1,81 +1,42 @@
 defmodule Task1Web.TaskController do
   use Task1Web, :controller
 
-  alias Task1.Social
-  alias Task1.Social.Task
-  alias Task1.Accounts
+  alias Task1.Tasks
+  alias Task1.Tasks.Task
+
+  action_fallback Task1Web.FallbackController
 
   def index(conn, _params) do
-    tasks = Social.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+    tasks = Tasks.list_tasks()
+    render(conn, "index.json", tasks: tasks)
   end
-
-  def new(conn, _params) do
-    user_id_list = Accounts.get_all_id()
-    changeset = Social.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset, task: %Task{}, user_id_list: user_id_list)
-  end
-
 
   def create(conn, %{"task" => task_params}) do
-    case Social.create_task(task_params) do
-      {:ok, task} ->
-        conn
-        |> put_flash(:info, "Task created successfully.")
-        |> redirect(to: task_path(conn, :show, task))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, task: %Task{})
+    with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", task_path(conn, :show, task))
+      |> render("show.json", task: task)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    task = Social.get_task!(id)
-    render(conn, "show.html", task: task)
+    task = Tasks.get_task!(id)
+    render(conn, "show.json", task: task)
   end
-
-  def edit(conn, %{"id" => id}) do
-    user_id_list = Accounts.get_all_id()
-    task = Social.get_task!(id)
-    changeset = Social.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset, user_id_list: user_id_list)
-  end
-
 
   def update(conn, %{"id" => id, "task" => task_params}) do
-    IO.puts("****************")
-    IO.inspect(task_params)
-    IO.puts("****************")
-    task = Social.get_task!(id)
-    if Map.get(task_params, "time") do
-      %{"time" => time} = task_params
-      time = String.to_integer(time)
-      time = Integer.floor_div(time, 15) * 15
-      time = Integer.to_string(time)
-      task_params = Map.replace!(task_params, "time", time)
-    end
-    case Social.update_task(task, task_params) do
-      {:ok, task} ->
-        conn
-        |> put_flash(:info, "Task updated successfully.")
-        |> redirect(to: task_path(conn, :show, task))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", task: task, changeset: changeset)
+    task = Tasks.get_task!(id)
+
+    with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
+      render(conn, "show.json", task: task)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    task = Social.get_task!(id)
-    {:ok, _task} = Social.delete_task(task)
-
-    conn
-    |> put_flash(:info, "Task deleted successfully.")
-    |> redirect(to: task_path(conn, :index))
+    task = Tasks.get_task!(id)
+    with {:ok, %Task{}} <- Tasks.delete_task(task) do
+      send_resp(conn, :no_content, "")
+    end
   end
-
-  def complete(conn, %{"task_id" => id}) do
-    task = Social.get_task!(id)
-    changeset = Social.change_task(task)
-    render(conn, "complete.html", task: task, changeset: changeset)
-  end
-
 end

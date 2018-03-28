@@ -1,3 +1,6 @@
+<div id="root">
+ React is not loaded
+</div>
 <div id="landing">
   <h1 id="login">Log In</h1>
       <!-- session_path(@conn, :create) -->

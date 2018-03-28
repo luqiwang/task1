@@ -53,6 +53,6 @@ config :task1, Task1.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "wangluqi",
   password: "",
-  database: "task1_dev",
+  database: "task3_dev",
   hostname: "localhost",
   pool_size: 10
