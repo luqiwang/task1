@@ -42,13 +42,17 @@ defmodule Task1Web.TaskController do
 
 
   def update(conn, %{"id" => id, "task" => task_params}) do
+    IO.puts("****************")
+    IO.inspect(task_params)
+    IO.puts("****************")
     task = Social.get_task!(id)
-    %{"time" => time} = task_params
-    time = String.to_integer(time)
-    time = Integer.floor_div(time, 15) * 15
-    time = Integer.to_string(time)
-    task_params = Map.replace!(task_params, "time", time)
-
+    if Map.get(task_params, "time") do
+      %{"time" => time} = task_params
+      time = String.to_integer(time)
+      time = Integer.floor_div(time, 15) * 15
+      time = Integer.to_string(time)
+      task_params = Map.replace!(task_params, "time", time)
+    end
     case Social.update_task(task, task_params) do
       {:ok, task} ->
         conn
