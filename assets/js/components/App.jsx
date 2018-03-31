@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 import Nav from './Nav';
-import LogIn from './LogIn'
+import LoginForm from './LoginForm'
 import TaskForm from './TaskForm'
 
 
@@ -23,8 +23,8 @@ const App = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav />
-        <Route path="/" exact={true} component={TaskForm}/>
-        <Route path="/login" exact={true} component={LogIn}/>
+        <Route path="/" exact={true} component={LoginForm}/>
+        <Route path="/tasks/create" exact={true} component={TaskForm}/>
       </div>
     </Router>
   );

@@ -1,7 +1,8 @@
-// this part based on Professor Nat's Example: https://github.com/NatTuck/microblog-spa/blob/lec19-end/assets/js/cs/nav.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { NavItem } from 'reactstrap';
+import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
+import { connect } from 'react-redux';
+import api from '../api';
 
 export default function Nav(props) {
   return (
