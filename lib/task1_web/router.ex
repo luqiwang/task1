@@ -18,7 +18,9 @@ defmodule Task1Web.Router do
   scope "/", Task1Web do
     pipe_through :browser # Use the default browser stack
 
-    get "/*path", PageController, :index
+    get "/", PageController, :index
+    get "/users/*path", PageController, :index
+    get "/tasks/*path", PageController, :index
     # get "/", PageController, :index
     # get "/login", PageController, :index
     resources "/users", UserController

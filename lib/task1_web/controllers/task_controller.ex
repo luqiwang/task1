@@ -12,6 +12,9 @@ defmodule Task1Web.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+    IO.puts("****************")
+    IO.inspect(task_params)
+    IO.puts("****************")
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)

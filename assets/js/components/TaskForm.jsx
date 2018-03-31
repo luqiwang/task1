@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import api from '../api';
 
 function TaskForm(props) {
   console.log("props@PostForm", props);
 
   function update(ev) {
+    addInfo("")
     let input = $(ev.target);
 
     let data = {};
@@ -19,7 +21,31 @@ function TaskForm(props) {
     props.dispatch(action);
   }
 
+  function addInfo(message) {
+    let data = {}
+    data['info'] = message
+    let action = {
+      type: 'UPDATE_FORM',
+      data: data,
+    };
+    props.dispatch(action);
+  }
+
   function submit(ev) {
+    console.log("length",props.form.title.length);
+    if (props.form.title.length == 0) {
+      console.log("title empty")
+      addInfo("Title can not be empty!")
+      return;
+    }
+    if (props.form.body.length == 0) {
+      addInfo("Body can not be empty!")
+      return;
+    }
+    if (props.form.user_id.length == 0) {
+      addInfo("Assignee can not be empty!")
+      return;
+    }
     api.submit_task(props.form);
     console.log(props.form);
   }
@@ -48,8 +74,10 @@ function TaskForm(props) {
         { users }
       </Input>
     </FormGroup>
-    <Button onClick={submit} color="primary">Task</Button> &nbsp;
-    <Button onClick={clear}>Clear</Button>
+    <p className="input-err">{props.form.info}</p>
+    <Button onClick={submit} color="primary">Create</Button> &nbsp;
+    <Link to='/tasks' style={{ textDecoration: 'none', color: 'white'}}><Button color="primary">Back</Button></Link> &nbsp;
+      <Button onClick={clear}>Clear</Button>
   </div>;
 }
 

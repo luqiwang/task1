@@ -22,11 +22,12 @@ function users(state = [], action) {
 }
 
 const empty_form = {
-  creater_id:"",
+  creater_id:"1",
   user_id: "",
   title: "",
   body: "",
   token: "",
+  info: ""
 };
 
 function form(state = empty_form, action) {
@@ -65,9 +66,26 @@ function login(state = empty_login, action) {
   }
 }
 
+let empty_signup = {
+  name: "",
+  email: "",
+  pass: "",
+  pass2: "",
+  info: ""
+};
+
+function signup(state = empty_signup, action) {
+  switch (action.type) {
+    case 'UPDATE_SIGNUP_FORM':
+      return Object.assign({}, state, action.data);
+    default:
+      return state;
+  }
+}
+
 function root_reducer(state0, action) {
   console.log("reducer", action);
-  let reducer = combineReducers({tasks, users, form, token, login});
+  let reducer = combineReducers({tasks, users, form, token, login, signup});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

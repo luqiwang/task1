@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom'
 import api from '../api';
 
 function LoginForm(props) {
@@ -34,6 +35,7 @@ function LoginForm(props) {
       <Input type="password" name="pass" value={props.login.pass} onChange={update} />
     </FormGroup>
     <Button onClick={create_token} color="primary">LogIn</Button> &nbsp;
+    <Link to='/users/new' style={{ textDecoration: 'none', color: 'white'}}><Button color="primary">Register</Button></Link> &nbsp;
   </div>;
 }
 
