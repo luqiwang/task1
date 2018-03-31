@@ -19,6 +19,7 @@ defmodule Task1Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/login", PageController, :index
     resources "/users", UserController
     resources "/tasks", TaskController do
       get "/complete", TaskController, :complete, as: :complete

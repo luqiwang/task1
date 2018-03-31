@@ -13,11 +13,21 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 import $ from "jquery";
+import _ from 'underscore'
+window.$ = $
+window._ = _
+
+import api from './api'
+import store from './store'
 // Import local files
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import demo_init from "./Demo";
-$(demo_init);
+import app_init from "./components/App";
+$(function() {
+  api.request_users();
+  api.request_tasks();
+  app_init(store);
+});
