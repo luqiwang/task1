@@ -1,4 +1,4 @@
-defmodule Task2Web.ConnCase do
+defmodule Task3Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,18 +19,18 @@ defmodule Task2Web.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import Task2Web.Router.Helpers
+      import Task3Web.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Task2Web.Endpoint
+      @endpoint Task3Web.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Task2.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Task3.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Task2.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Task3.Repo, {:shared, self()})
     end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

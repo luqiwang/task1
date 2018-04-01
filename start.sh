@@ -1,6 +1,5 @@
-export PORT=5102
+export PORT=5350
 
-cd ~/www/task2 
-./bin/task2 stop || true
-./bin/task2 start
-
+cd ~/www/task3
+./bin/task3 stop || true
+./bin/task3 start

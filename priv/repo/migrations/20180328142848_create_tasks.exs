@@ -1,4 +1,4 @@
-defmodule Task2.Repo.Migrations.CreateTasks do
+defmodule Task3.Repo.Migrations.CreateTasks do
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,4 @@
-defmodule Task2.DataCase do
+defmodule Task3.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Task2.DataCase do
 
   using do
     quote do
-      alias Task2.Repo
+      alias Task3.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Task2.DataCase
+      import Task3.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Task2.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Task3.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Task2.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Task3.Repo, {:shared, self()})
     end
 
     :ok

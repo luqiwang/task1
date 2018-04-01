@@ -1,10 +1,10 @@
-defmodule Task2.TasksTest do
-  use Task2.DataCase
+defmodule Task3.TasksTest do
+  use Task3.DataCase
 
-  alias Task2.Tasks
+  alias Task3.Tasks
 
   describe "tasks" do
-    alias Task2.Tasks.Task
+    alias Task3.Tasks.Task
 
     @valid_attrs %{body: "some body", time: 42, title: "some title"}
     @update_attrs %{body: "some updated body", time: 43, title: "some updated title"}

@@ -2,11 +2,11 @@
 
 set -e
 
-CURRENT_NAME="Task2"
-CURRENT_OTP="task2"
+CURRENT_NAME="Task3"
+CURRENT_OTP="task3"
 
-NEW_NAME="Task2"
-NEW_OTP="task2"
+NEW_NAME="Task3"
+NEW_OTP="task3"
 
 ack -l $CURRENT_NAME | xargs sed -i '' -e "s/$CURRENT_NAME/$NEW_NAME/g"
 ack -l $CURRENT_OTP | xargs sed -i '' -e "s/$CURRENT_OTP/$NEW_OTP/g"
