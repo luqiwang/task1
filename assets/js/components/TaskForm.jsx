@@ -11,7 +11,7 @@ function TaskForm(props) {
     addInfo("")
     let input = $(ev.target);
 
-    let data = {};
+    let data = {creater_id: props.token.user_id};
     data[input.attr('name')] = input.val();
     let action = {
       type: 'UPDATE_FORM',
@@ -47,7 +47,7 @@ function TaskForm(props) {
       return;
     }
     api.submit_task(props.form);
-    console.log(props.form);
+    props.history.push('/tasks');
   }
 
   function clear(ev) {
@@ -86,6 +86,7 @@ function state2props(state) {
   return {
     form: state.form,
     users: state.users,
+    token: state.token
   };
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -28,26 +28,31 @@ const App = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav />
-        <Route path="/" exact={true} component={LoginForm}/>
+        <Route path="/login" exact={true} component={LoginForm}/>
           <Route path="/users" exact={true} render={() =>
             <Users users={props.users} />
           } />
-        <Route path="/users/:user_id" render={({match}) =>
-          <div>
-          <Tasks tasks={_.filter(props.tasks, (task) =>
-            match.params.user_id == task.user.id )
+        <Switch>
+          <Route path="/users/new" exact={true} component={SignupForm}/>
+          <Route path="/users/:user_id" exact={true} render={({match}) =>
+            <div>
+            <Tasks tasks={_.filter(props.tasks, (task) =>
+              match.params.user_id == task.user.id )
+            } />
+          <Link to='/users' style={{ textDecoration: 'none', color: 'white'}}><Button color="primary">Back</Button></Link> &nbsp;
+          </div>
           } />
-        <Link to='/users' style={{ textDecoration: 'none', color: 'white'}}><Button color="primary">Back</Button></Link> &nbsp;
-        </div>
-        } />
-        <Route path="/tasks" exact={true} render={() =>
-            <Tasks tasks={props.tasks} />
+        </Switch>
+        <Switch>
+          <Route path="/tasks/new" exact={true} component={TaskForm}/>
+
+          <Route path="/tasks" exact={true} render={() =>
+              <Tasks tasks={props.tasks} />
+            } />
+          <Route path="/tasks/:task_id" exact={true} render={({match}) =>
+            <TaskDetail props={match.params.task_id} />
           } />
-        <Route path="/tasks/:task_id" render={({match}) =>
-          <TaskDetail props={match.params.task_id} />
-        } />
-        <Route path="/tasks/new" exact={true} component={TaskForm}/>
-        <Route path="/users/new" exact={true} component={SignupForm}/>
+        </Switch>
       </div>
     </Router>
   );

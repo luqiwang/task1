@@ -19,6 +19,7 @@ defmodule Task1Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/login", PageController, :index
     get "/users/*path", PageController, :index
     get "/tasks/*path", PageController, :index
     # get "/", PageController, :index

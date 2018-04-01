@@ -12,9 +12,6 @@ defmodule Task1Web.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    IO.puts("****************")
-    IO.inspect(task_params)
-    IO.puts("****************")
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
@@ -29,7 +26,16 @@ defmodule Task1Web.TaskController do
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
-    task = Tasks.get_task!(id)
+    task_id = Map.get(task_params, "id")
+    task = Tasks.get_task!(task_id)
+    pretime = Map.get(task_params, "time")
+    if pretime && pretime != "" do
+      %{"time" => time} = task_params
+      time = String.to_integer(time)
+      time = Integer.floor_div(time, 15) * 15
+      time = Integer.to_string(time)
+      task_params = Map.replace!(task_params, "time", time)
+   end
 
     with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
       render(conn, "show.json", task: task)

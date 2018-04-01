@@ -27,6 +27,10 @@ defmodule Task1.Users do
     Comeonin.Argon2.check_pass(user, pass)
   end
 
+  def exist_user(name) do
+    user = Repo.one(from u in User, where: u.name == ^name)
+  end
+
   @doc """
   Gets a single user.
 

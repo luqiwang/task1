@@ -48,6 +48,21 @@ class TheServer {
     });
   }
 
+  complete_task(data) {
+    console.log("complete task",data)
+    let task_id = data['task_id']
+    let that = this
+    $.ajax("/api/v1/tasks/"+task_id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ id: task_id, task: data }),
+      success: (resp) => {
+        this.request_tasks()
+      },
+    });
+  }
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",
@@ -60,6 +75,12 @@ class TheServer {
           token: resp,
         });
       },
+      error: () => {
+        store.dispatch({
+          type: 'UPDATE_LOGIN_FORM',
+          data: {info: "Wrong username or password!"}
+        })
+      }
     });
   }
   submit_signup(data) {

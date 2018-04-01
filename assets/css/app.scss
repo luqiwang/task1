@@ -26,3 +26,32 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.landing-link{
+  text-decoration: none;
+  color: white;
+}
+.landing-btn{
+  display: block;
+  height: 100px;
+  width: 100%;
+  margin: 20px;
+  font-size: 50px;
+  font-family: "Gill Sans", sans-serif;
+  background-color: green;
+  border: 0px;
+  border-radius: 15px;
+}
+.welcome-p{
+  padding-left: 20px;
+}
+.nav-user{
+  color: white
+}
+.time-input{
+  width: 50%;
+  display: inline;
+  margin-right: 20px;
+}
+.status{
+  color: green
+}
