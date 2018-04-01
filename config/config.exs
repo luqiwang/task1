@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :task1,
-  ecto_repos: [Task1.Repo]
+config :task2,
+  ecto_repos: [Task2.Repo]
 
 # Configures the endpoint
-config :task1, Task1Web.Endpoint,
+config :task2, Task2Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "3lukpfNutY1TOtiqrpbDYQUdnTXn5npPVEvyFmu+nfD+rPjF5A+xBXjXo41nx6Nj",
-  render_errors: [view: Task1Web.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Task1.PubSub,
+  render_errors: [view: Task2Web.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Task2.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

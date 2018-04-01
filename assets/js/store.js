@@ -8,9 +8,17 @@ function tasks(state = [], action) {
     case 'ADD_TASK':
       return [action.task, ...state];
     case 'UPDATE_TASK':
-      return update_by_task(state, action.task)
+      let task = action.task
+      console.log("updattask",task)
+      return _.map(state, (tt) => {
+                if (tt.id == task.id) {
+                  return task
+                } else {
+                  return tt
+                }
+              })
     case 'DELETE_TASK':
-      return delete_by_task_id(state, action.id)
+      return _.filter(state, (tt) => tt.id!=action.id)
     default:
       return state;
   }
@@ -26,19 +34,9 @@ function update_by_task(state, task) {
       return tt
     }
   })
-  console.log("updatetask", newState)
   return newState
 }
 
-function delete_by_task_id(state, id) {
-  let newState = Object.assign({}, state)
-  newState = _.filter(newState, (task) => {
-    console.log("FILTER",id)
-    console.log( "equal?", task.id == id)
-    task.id != id
-  })
-  return newState
-}
 
 function users(state = [], action) {
   switch (action.type) {

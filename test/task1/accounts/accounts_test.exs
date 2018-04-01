@@ -1,10 +1,10 @@
-defmodule Task1.AccountsTest do
-  use Task1.DataCase
+defmodule Task2.AccountsTest do
+  use Task2.DataCase
 
-  alias Task1.Accounts
+  alias Task2.Accounts
 
   describe "users" do
-    alias Task1.Accounts.User
+    alias Task2.Accounts.User
 
     @valid_attrs %{email: "some email", name: "some name"}
     @update_attrs %{email: "some updated email", name: "some updated name"}

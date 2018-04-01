@@ -1,8 +1,8 @@
-defmodule Task1Web.TaskControllerTest do
-  use Task1Web.ConnCase
+defmodule Task2Web.TaskControllerTest do
+  use Task2Web.ConnCase
 
-  alias Task1.Tasks
-  alias Task1.Tasks.Task
+  alias Task2.Tasks
+  alias Task2.Tasks.Task
 
   @create_attrs %{body: "some body", time: 42, title: "some title"}
   @update_attrs %{body: "some updated body", time: 43, title: "some updated title"}

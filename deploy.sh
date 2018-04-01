@@ -2,7 +2,7 @@
 
 export PORT=5102
 export MIX_ENV=prod
-export GIT_PATH=/home/task1/src/task1 
+export GIT_PATH=/home/task2/src/task2 
 
 PWD=`pwd`
 if [ $PWD != $GIT_PATH ]; then
@@ -11,8 +11,8 @@ if [ $PWD != $GIT_PATH ]; then
 	exit 1
 fi
 
-if [ $USER != "task1" ]; then
-	echo "Error: must run as user 'task1'"
+if [ $USER != "task2" ]; then
+	echo "Error: must run as user 'task2'"
 	echo "  Current user is $USER"
 	exit 2
 fi
@@ -27,17 +27,17 @@ mkdir -p ~/www
 mkdir -p ~/old
 
 NOW=`date +%s`
-if [ -d ~/www/task1 ]; then
-	echo mv ~/www/task1 ~/old/$NOW
-	mv ~/www/task1 ~/old/$NOW
+if [ -d ~/www/task2 ]; then
+	echo mv ~/www/task2 ~/old/$NOW
+	mv ~/www/task2 ~/old/$NOW
 fi
 
-mkdir -p ~/www/task1
-REL_TAR=~/src/task1/_build/prod/rel/task1/releases/0.0.1/task1.tar.gz
-(cd ~/www/task1 && tar xzvf $REL_TAR)
+mkdir -p ~/www/task2
+REL_TAR=~/src/task2/_build/prod/rel/task2/releases/0.0.1/task2.tar.gz
+(cd ~/www/task2 && tar xzvf $REL_TAR)
 
 crontab - <<CRONTAB
-@reboot bash /home/task1/src/task1/start.sh
+@reboot bash /home/task2/src/task2/start.sh
 CRONTAB
 
 #. start.sh

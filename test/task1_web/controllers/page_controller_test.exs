@@ -1,5 +1,5 @@
-defmodule Task1Web.PageControllerTest do
-  use Task1Web.ConnCase
+defmodule Task2Web.PageControllerTest do
+  use Task2Web.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

@@ -1,4 +1,4 @@
-defmodule Task1.Repo.Migrations.AddPasswordHashes do
+defmodule Task2.Repo.Migrations.AddPasswordHashes do
   use Ecto.Migration
 
   def change do

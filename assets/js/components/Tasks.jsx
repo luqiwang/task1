@@ -42,7 +42,11 @@ let Complete = connect(({token}) => {return {token};})((props) => {
   function complete_task(){
     let inputId = "#input" + props.task.id
     let input = $(inputId);
-    let data = Object.assign({}, props.task, {time: input.val()});
+    if (isNaN(input.val())) {
+      alert("Must Input Number")
+      return;
+    }
+    let data = Object.assign({}, props.task, {time: input.val().trim()});
     input.val('')
     api.complete_task(data)
   }
@@ -67,7 +71,7 @@ let Complete = connect(({token}) => {return {token};})((props) => {
   return (
     <div>
       <p className='status'>Task Status: Todo</p>
-      <Label for="time">Input the time you spent</Label>
+      <Label for="time">Input the minutes you spent</Label>
       <Input id={inputId} className="time-input" type="input" name="time">
       </Input>
       <Button onClick={complete_task} color="success">Complete</Button>

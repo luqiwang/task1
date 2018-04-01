@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :task1, Task1Web.Endpoint,
+config :task2, Task2Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,13 +31,13 @@ config :task1, Task1Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :task1, Task1Web.Endpoint,
+config :task2, Task2Web.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/task1_web/views/.*(ex)$},
-      ~r{lib/task1_web/templates/.*(eex)$}
+      ~r{lib/task2_web/views/.*(ex)$},
+      ~r{lib/task2_web/templates/.*(eex)$}
     ]
   ]
 
@@ -49,7 +49,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :task1, Task1.Repo,
+config :task2, Task2.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "wangluqi",
   password: "",
