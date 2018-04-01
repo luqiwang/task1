@@ -31,7 +31,7 @@ function LoginForm(props) {
 
   function create_token(ev) {
     api.submit_login(props.login);
-    console.log("after create token", props.login);
+    props.history.push('/login')
   }
 
   if (props.token) {

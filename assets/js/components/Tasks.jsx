@@ -5,6 +5,14 @@ import { connect } from 'react-redux';
 import api from '../api';
 
 function Task(params) {
+  function renderEdit(task, token) {
+    if (token && token.user_id && task.creater.id == token.user_id) {
+      return <div className="manager-div">
+        <Link className='edit-link' to={"/tasks/" + task.id + "/edit"}><Button color="primary">Edit</Button></Link>
+        <Button color="danger" onClick={() => api.delete_task(task.id)}>Delete</Button>
+      </div>
+    }
+  }
   return(
     <Card>
     <CardBody>
@@ -14,8 +22,9 @@ function Task(params) {
             <p>Title: { params.task.title }</p>
             <p>Creater: { params.task.creater.name }</p>
             <p>Assignee: { params.task.user.name }</p>
-            <p>Time: { params.task.time }</p>
-            <Link to={"/tasks/" + params.task.id}>Detail</Link>
+            <p>Time: { params.task.time } Minutes</p>
+            <Link to={"/tasks/" + params.task.id}><Button color="primary">Detail</Button></Link>
+            {renderEdit(params.task, params.token)}
           </Col>
           <Col xs="6">
             <Complete task={params.task} />
@@ -27,6 +36,9 @@ function Task(params) {
 }
 
 let Complete = connect(({token}) => {return {token};})((props) => {
+  if (props.token == null) {
+    return <div>Need Log In</div>
+  }
   function complete_task(){
     let inputId = "#input" + props.task.id
     let input = $(inputId);
@@ -64,7 +76,7 @@ let Complete = connect(({token}) => {return {token};})((props) => {
 })
 
 export default function Tasks(params) {
-  let tasks = _.map(params.tasks, (task) => <Task key={task.id} task={task} />);
+  let tasks = _.map(params.tasks, (task) => <Task key={task.id} task={task} token={params.token} />);
   return <div>
     <div id="new-task">
       <Link to='/tasks/new' style={{textDecoration: 'none', color: 'white'}}><Button color="primary">New Task</Button></Link>

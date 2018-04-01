@@ -48,6 +48,42 @@ class TheServer {
     });
   }
 
+  update_task(data, task_id) {
+    console.log("PATCH",data)
+    console.log("PATCH",task_id)
+    let url = "/api/v1/tasks/" + task_id
+    let that = this
+    $.ajax(url, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ id: task_id, task: data }),
+      success: (resp) => {
+        console.log("UPDATERESP", resp.data)
+        store.dispatch({
+          type: 'UPDATE_TASK',
+          task: resp.data
+        });
+      },
+    });
+  }
+
+  delete_task(task_id) {
+    console.log("delete!!", task_id);
+    $.ajax("/api/v1/tasks/" + task_id, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: (resp) => {
+        store.dispatch({
+          type: 'DELETE_TASK',
+          id: task_id,
+        });
+      },
+    })
+  }
+
   complete_task(data) {
     console.log("complete task",data)
     let task_id = data['task_id']
@@ -58,10 +94,14 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({ id: task_id, task: data }),
       success: (resp) => {
-        this.request_tasks()
+        store.dispatch({
+          type: 'UPDATE_TASK',
+          task: resp.data
+        });
       },
     });
   }
+
 
   submit_login(data) {
     $.ajax("/api/v1/token", {
@@ -90,7 +130,10 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
-        console.log(resp)
+        store.dispatch({
+          type: 'ADD_USER',
+          user: resp.data,
+        });
       },
     });
   }

@@ -29,9 +29,16 @@ defmodule Task1Web.TaskController do
     task_id = Map.get(task_params, "id")
     task = Tasks.get_task!(task_id)
     pretime = Map.get(task_params, "time")
+    IO.puts('****TASK********')
+    IO.inspect(task)
+    IO.puts('************')
+    IO.inspect(pretime)
+    IO.puts('************')
     if pretime && pretime != "" do
       %{"time" => time} = task_params
-      time = String.to_integer(time)
+      if is_binary(time) do
+        time = String.to_integer(time)
+      end
       time = Integer.floor_div(time, 15) * 15
       time = Integer.to_string(time)
       task_params = Map.replace!(task_params, "time", time)

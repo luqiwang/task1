@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody } from 'reactstrap';
+import { Card, CardBody, Button } from 'reactstrap';
 
 function User(params) {
   return(
@@ -8,7 +8,7 @@ function User(params) {
     <CardBody>
       <div>
         <p>{ params.user.name } ({ params.user.email })</p>
-        <Link to={"/users/" + params.user.id}>To Do Tasks</Link>
+        <Link to={"/users/" + params.user.id}><Button color="primary">To Do Tasks</Button></Link>
       </div>
     </CardBody>
   </Card>)

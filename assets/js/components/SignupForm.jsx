@@ -62,7 +62,7 @@ function SignupForm(props) {
       password: props.signup.pass
     }
     api.submit_signup(data);
-    console.log(data);
+    props.history.push('/signok');
   }
 
   function validateEmail(email) {

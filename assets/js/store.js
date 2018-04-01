@@ -4,19 +4,48 @@ import deepFreeze from 'deep-freeze';
 function tasks(state = [], action) {
   switch (action.type) {
     case 'TASKS_LIST':
-    console.log("UPDATETASKLIST")
       return [...action.tasks]
     case 'ADD_TASK':
       return [action.task, ...state];
+    case 'UPDATE_TASK':
+      return update_by_task(state, action.task)
+    case 'DELETE_TASK':
+      return delete_by_task_id(state, action.id)
     default:
       return state;
   }
+}
+
+function update_by_task(state, task) {
+  console.log("taskinto", task)
+  let newState = Object.assign({}, state)
+  newState = _.map(newState, (tt) => {
+    if (tt.id == task.id) {
+      return task
+    } else {
+      return tt
+    }
+  })
+  console.log("updatetask", newState)
+  return newState
+}
+
+function delete_by_task_id(state, id) {
+  let newState = Object.assign({}, state)
+  newState = _.filter(newState, (task) => {
+    console.log("FILTER",id)
+    console.log( "equal?", task.id == id)
+    task.id != id
+  })
+  return newState
 }
 
 function users(state = [], action) {
   switch (action.type) {
   case 'USERS_LIST':
     return [...action.users];
+  case 'ADD_USER':
+    return [action.user, ...state];
   default:
     return state;
   }
