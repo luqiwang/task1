@@ -75,17 +75,11 @@ defmodule Task3.Tasks do
 
   """
   def update_task(%Task{} = task, attrs) do
-    IO.puts('****TASK********')
-    IO.inspect(attrs)
-    IO.puts('************')
     {:ok, task} = task
     |> Task.changeset(attrs)
     |> Repo.update()
     task_id = Map.get(task, :id)
     newTask = get_task!(task_id)
-    IO.puts('****NEWTASK********')
-    IO.inspect(newTask)
-    IO.puts('************')
     {:ok, Repo.preload(newTask, :user)|> Repo.preload(:creater)}
   end
 
